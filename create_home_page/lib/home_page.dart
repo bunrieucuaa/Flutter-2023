@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
+import 'package:create_home_page/my_object.dart';
 
-class HomePage extends StatelessWidget {
+class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
   @override
+  State<HomePage> createState() => _HomePageState();
+}
+
+class _HomePageState extends State<HomePage> {
+  TinhToan tinhToan = TinhToan(value: 0);
+  int _value = 0;
+  @override
   Widget build(BuildContext context) {
-    int value = 0;
     return Scaffold(
         appBar: AppBar(
-          leading: const Icon(Icons.abc),
-          title: const Text("My App"),
+          leading: const Icon(Icons.home),
+          title: const Text("An's App"),
           backgroundColor: const Color.fromARGB(38, 0, 70, 22),
           actions: const [
             Icon(Icons.notification_add),
@@ -27,17 +34,31 @@ class HomePage extends StatelessWidget {
             ),
           ),
           Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-            IconButton(onPressed: () {}, icon: const Icon(Icons.remove)),
-            const SizedBox(width: 10),
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    tinhToan.decrease();
+                    _value = tinhToan.get();
+                  });
+                },
+                icon: const Icon(Icons.remove)),
+            const SizedBox(width: 20),
             Text(
-              '$value',
+              '$_value',
               style: const TextStyle(
                 fontSize: 24,
                 color: Color.fromARGB(255, 184, 8, 8),
               ),
             ),
-            const SizedBox(width: 10),
-            IconButton(onPressed: () {}, icon: const Icon(Icons.add)),
+            const SizedBox(width: 20),
+            IconButton(
+                onPressed: () {
+                  setState(() {
+                    tinhToan.increase();
+                    _value = tinhToan.get();
+                  });
+                },
+                icon: const Icon(Icons.add)),
           ])
         ])));
   }
